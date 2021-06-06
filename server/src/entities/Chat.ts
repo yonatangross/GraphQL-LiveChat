@@ -1,13 +1,11 @@
-import { ObjectType, Field } from "type-graphql";
+import { ObjectType, Field } from 'type-graphql';
+import { Message } from './Message';
 
-@ObjectType()
+@ObjectType({ description: 'The Chat model' })
 export class Chat {
   @Field()
   id: number;
 
-  @Field()
-  message: string;
-
-  @Field()
-  name: string;
+  @Field((type) => [Message])
+  messages: Message[];
 }

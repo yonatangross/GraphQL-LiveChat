@@ -9,21 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Chat = void 0;
+exports.Message = void 0;
 const type_graphql_1 = require("type-graphql");
-const Message_1 = require("./Message");
-let Chat = class Chat {
+let Message = class Message {
 };
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field((type) => type_graphql_1.ID),
     __metadata("design:type", Number)
-], Chat.prototype, "id", void 0);
+], Message.prototype, "id", void 0);
 __decorate([
-    type_graphql_1.Field((type) => [Message_1.Message]),
-    __metadata("design:type", Array)
-], Chat.prototype, "messages", void 0);
-Chat = __decorate([
-    type_graphql_1.ObjectType({ description: 'The Chat model' })
-], Chat);
-exports.Chat = Chat;
-//# sourceMappingURL=Chat.js.map
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], Message.prototype, "from", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], Message.prototype, "content", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", Date)
+], Message.prototype, "sentAt", void 0);
+Message = __decorate([
+    type_graphql_1.ObjectType({ description: 'The message model' })
+], Message);
+exports.Message = Message;
+//# sourceMappingURL=Message.js.map

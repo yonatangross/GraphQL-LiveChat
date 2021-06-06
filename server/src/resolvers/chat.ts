@@ -1,17 +1,9 @@
-import {
-  Mutation,
-  Query,
-  Resolver,
-  Arg,
-  Root,
-  PubSub,
-  PubSubEngine,
-  Subscription,
-} from "type-graphql";
-import { Chat } from "../entities/Chat";
+import { Message } from 'src/entities/Message';
+import { Mutation, Query, Resolver, Arg, Root, PubSub, PubSubEngine, Subscription } from 'type-graphql';
+import { Chat } from '../entities/Chat';
 
 const chats: Chat[] = [];
-const channel = "CHAT_CHANNEL";
+const channel = 'CHAT_CHANNEL';
 
 @Resolver()
 export class ChatResolver {
@@ -21,12 +13,8 @@ export class ChatResolver {
   }
 
   @Mutation(() => Chat)
-  async createChat(
-    @PubSub() pubSub: PubSubEngine,
-    @Arg("name") name: string,
-    @Arg("message") message: string
-  ): Promise<Chat> {
-    const chat = { id: chats.length + 1, name, message };
+  async createChat(@PubSub() pubSub: PubSubEngine, @Arg('messages') messages: Message[]): Promise<Chat> {
+    const chat = { id: chats.length + 1, messages };
     chats.push(chat);
     const payload = chat;
     await pubSub.publish(channel, payload);
@@ -34,7 +22,7 @@ export class ChatResolver {
   }
 
   @Subscription({ topics: channel })
-  messageSent(@Root() { id, name, message }: Chat): Chat {
-    return { id, name, message };
+  messageSent(@Root() { id, messages }: Chat): Chat {
+    return { id, messages };
   }
 }

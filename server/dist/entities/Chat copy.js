@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Chat = void 0;
 const type_graphql_1 = require("type-graphql");
-const Message_1 = require("./Message");
 let Chat = class Chat {
 };
 __decorate([
@@ -19,11 +18,15 @@ __decorate([
     __metadata("design:type", Number)
 ], Chat.prototype, "id", void 0);
 __decorate([
-    type_graphql_1.Field((type) => [Message_1.Message]),
-    __metadata("design:type", Array)
-], Chat.prototype, "messages", void 0);
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], Chat.prototype, "message", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], Chat.prototype, "name", void 0);
 Chat = __decorate([
-    type_graphql_1.ObjectType({ description: 'The Chat model' })
+    type_graphql_1.ObjectType()
 ], Chat);
 exports.Chat = Chat;
-//# sourceMappingURL=Chat.js.map
+//# sourceMappingURL=Chat%20copy.js.map
