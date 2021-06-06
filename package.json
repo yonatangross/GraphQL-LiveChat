@@ -1,0 +1,26 @@
+{
+  "name": "graphql-livechat",
+  "version": "1.0.0",
+  "description": "Basic customer live chat using Javascript, Typescript, Node.js, React and GraphQL.",
+  "main": "index.js",
+  "scripts": {
+    "scripts": {
+      "server": "cd server && npm start",
+      "front": "cd client\\front && npm start",
+      "dev": "concurrently \"npm run server\" \"npm run front\""
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yonatangross/GraphQL-LiveChat.git"
+  },
+  "author": "Yonatan Gross",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yonatangross/GraphQL-LiveChat/issues"
+  },
+  "homepage": "https://github.com/yonatangross/GraphQL-LiveChat#readme",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
