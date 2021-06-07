@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2017",
     "module": "commonjs",
     "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
     "sourceMap": true,
@@ -15,6 +15,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "typeRoots": ["./src/types"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,

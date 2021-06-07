@@ -1,12 +1,12 @@
-import { INewChatPayload } from './../entities/INewChat';
-import { MessageInput } from './../entities/MessageInput';
+import { INewChatPayload } from '../interfaces/INewChat';
+import { MessageInput } from '../entities/MessageInput';
 import { sampleChats } from '../data/chat.samples';
 import { Arg, Args, Mutation, Publisher, PubSub, Query, Resolver, ResolverFilterData, Root, Subscription } from 'type-graphql';
 import { Topic } from '../entities/Topic';
 import { Chat } from '../entities/Chat';
 import { v4 as uuidv4 } from 'uuid';
 import { Message } from '../entities/Message';
-import { INewMessagePayload } from '../entities/INewMessage';
+import { INewMessagePayload } from '../interfaces/INewMessage';
 import { NewMessagesArgs } from './chatArgs';
 
 @Resolver()

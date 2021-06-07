@@ -1,4 +1,4 @@
-import { Message } from 'src/entities/Message';
+import { Message } from 'src/graphql/entities/Message';
 import { Field, ID, InputType } from 'type-graphql';
 
 @InputType({ description: 'New message data' })
