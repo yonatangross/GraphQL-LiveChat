@@ -7,14 +7,16 @@ export const sampleChats = [
     createdAt: new Date(),
     messages: [
       createMessage({
-        id:'1',
+        id: '1',
         sentAt: new Date(),
         content: 'Very tasty!',
+        chatId: '1',
       }),
       createMessage({
-        id:'2',
+        id: '2',
         sentAt: new Date(),
         content: 'Very tasty 2!',
+        chatId: '1',
       }),
     ],
   }),
@@ -23,16 +25,17 @@ export const sampleChats = [
     createdAt: new Date(),
     messages: [
       createMessage({
-        id:'3',
-
+        id: '3',
         sentAt: new Date(),
         content: 'Very yummy!',
+        chatId: '2',
       }),
       createMessage({
-        id:'4',
+        id: '4',
 
         sentAt: new Date(),
         content: 'Very yummy 2!',
+        chatId: '2',
       }),
     ],
   }),
@@ -41,16 +44,18 @@ export const sampleChats = [
     createdAt: new Date(),
     messages: [
       createMessage({
-        id:'5',
+        id: '5',
 
         sentAt: new Date(),
         content: 'Very dummy!',
+        chatId: '3',
       }),
       createMessage({
-        id:'6',
+        id: '6',
 
         sentAt: new Date(),
         content: 'Very dummy 2!',
+        chatId: '3',
       }),
     ],
   }),

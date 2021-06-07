@@ -1,11 +1,12 @@
+import { INewChatPayload } from './../entities/INewChat';
 import { MessageInput } from './../entities/MessageInput';
 import { sampleChats } from '../data/chat.samples';
-import { Arg, Args, Mutation, Publisher, PubSub, PubSubEngine, Query, Resolver, ResolverFilterData, Root, Subscription } from 'type-graphql';
+import { Arg, Args, Mutation, Publisher, PubSub, Query, Resolver, ResolverFilterData, Root, Subscription } from 'type-graphql';
 import { Topic } from '../entities/topics';
 import { Chat } from '../entities/Chat';
-import uuid from 'uuid';
-import { Message } from 'src/entities/Message';
-import { INewMessagePayload } from 'src/entities/INewMessage';
+import { v4 as uuidv4 } from 'uuid';
+import { Message } from '../entities/Message';
+import { INewMessagePayload } from '../entities/INewMessage';
 import { NewMessagesArgs } from './chatArgs';
 
 @Resolver()
@@ -23,9 +24,10 @@ export class ChatResolver {
       return false;
     }
 
-    const message: Message = { id: uuid.v4(), from: input.from, content: input.content, chatId: input.chatId, sentAt: new Date() };
+    const message: Message = { id: uuidv4(), from: input.from, content: input.content, chatId: input.chatId, sentAt: new Date() };
     chat.messages.push(message);
     await notifyAboutNewMessage({
+      id: message.id,
       chatId: message.chatId,
       content: message.content,
       sentAt: message.sentAt,
@@ -34,7 +36,6 @@ export class ChatResolver {
 
     return true;
   }
-
   @Subscription(() => Message, {
     topics: Topic.NewMessage,
     filter: ({ payload, args }: ResolverFilterData<INewMessagePayload, NewMessagesArgs>) => {
@@ -43,11 +44,27 @@ export class ChatResolver {
   })
   newMessages(@Root() newMessage: INewMessagePayload, @Args() { chatId }: NewMessagesArgs): Message {
     return {
-      id: uuid.v4(),
+      id: newMessage.id,
       content: newMessage.content,
       sentAt: newMessage.sentAt,
       from: newMessage.from,
       chatId: chatId,
     };
+  }
+
+  @Mutation()
+  addChat(): Chat {
+    const chat = Object.assign(new Chat(), {
+      id: uuidv4(),
+      messages: [],
+      createdAt: new Date(),
+    });
+    this.chatsCollection.push(chat);
+    return chat;
+  }
+
+  @Subscription(() => Chat, { topics: Topic.NewChat })
+  newChat(@Root() input: INewChatPayload): Chat {
+    return { id: input.id, createdAt: input.createdAt, messages: [] };
   }
 }

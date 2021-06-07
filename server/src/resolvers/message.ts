@@ -1,8 +1,5 @@
 import { Message } from '../entities/Message';
-import { Query, Resolver, Root, Subscription } from 'type-graphql';
-
-const channel = 'CHAT_CHANNEL';
-
+import { Query, Resolver } from 'type-graphql';
 @Resolver()
 export class MessageResolver {
   private messagesCollection: Message[] = [];
@@ -10,11 +7,5 @@ export class MessageResolver {
   @Query(() => [Message])
   getMessages(): Message[] {
     return this.messagesCollection;
-  }
-
-
-  @Subscription({ topics: channel })
-  messageSent(@Root() { id, from, content, sentAt, chatId }: Message): Message {
-    return { id, from, content, sentAt, chatId };
   }
 }
