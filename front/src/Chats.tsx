@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 
-const ALL_CHATS = gql`
-  query allChats {
+const GET_CHATS = gql`
+  query getChats {
     getChats {
       id
       name
@@ -13,7 +13,7 @@ const ALL_CHATS = gql`
 
 const CHATS_SUBSCRIPTION = gql`
   subscription OnNewChat {
-    messageSent {
+    newChat {
       id
       name
       message
@@ -22,7 +22,7 @@ const CHATS_SUBSCRIPTION = gql`
 `;
 
 const Chats = () => {
-  const { loading, error, data, subscribeToMore } = useQuery(ALL_CHATS);
+  const { loading, error, data, subscribeToMore } = useQuery(GET_CHATS);
 
   useEffect(() => {
     subscribeToMore({

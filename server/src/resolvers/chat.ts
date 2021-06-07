@@ -42,7 +42,7 @@ export class ChatResolver {
       return payload.chatId === args.chatId;
     },
   })
-  newMessages(@Root() newMessage: INewMessagePayload, @Args() { chatId }: NewMessagesArgs): Message {
+  newMessagesAdded(@Root() newMessage: INewMessagePayload, @Args() { chatId }: NewMessagesArgs): Message {
     return {
       id: newMessage.id,
       content: newMessage.content,
@@ -52,19 +52,29 @@ export class ChatResolver {
     };
   }
 
-  @Mutation()
-  addChat(): Chat {
+  @Mutation(() => Boolean)
+  async addChat(@PubSub(Topic.NewChat) notifyAboutNewChat: Publisher<INewChatPayload>): Promise<Boolean> {
     const chat = Object.assign(new Chat(), {
       id: uuidv4(),
       messages: [],
       createdAt: new Date(),
     });
+
+    if (!chat) {
+      return false;
+    }
     this.chatsCollection.push(chat);
-    return chat;
+    
+    await notifyAboutNewChat({
+      id: chat.id,
+      createdAt: chat.createdAt,
+    });
+
+    return true;
   }
 
   @Subscription(() => Chat, { topics: Topic.NewChat })
-  newChat(@Root() input: INewChatPayload): Chat {
-    return { id: input.id, createdAt: input.createdAt, messages: [] };
+  newChatAdded(@Root() newChat: INewChatPayload): Chat {
+    return { id: newChat.id, createdAt: newChat.createdAt, messages: [] };
   }
 }
