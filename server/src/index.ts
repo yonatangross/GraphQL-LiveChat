@@ -3,6 +3,8 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { ChatResolver } from './resolvers/chat';
+import { MessageResolver } from './resolvers/message';
+
 import http from 'http';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -17,7 +19,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [ChatResolver],
+      resolvers: [ChatResolver, MessageResolver],
       validate: false,
     }),
     subscriptions: {

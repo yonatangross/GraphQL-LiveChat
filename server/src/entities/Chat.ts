@@ -4,8 +4,11 @@ import { Message } from './Message';
 @ObjectType({ description: 'The Chat model' })
 export class Chat {
   @Field()
-  id: number;
+  id: string;
 
-  @Field((type) => [Message])
+  @Field(() => [Message])
   messages: Message[];
+
+  @Field()
+  createdAt: Date;
 }

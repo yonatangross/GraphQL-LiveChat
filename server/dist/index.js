@@ -17,6 +17,7 @@ const express_1 = __importDefault(require("express"));
 const apollo_server_express_1 = require("apollo-server-express");
 const type_graphql_1 = require("type-graphql");
 const chat_1 = require("./resolvers/chat");
+const message_1 = require("./resolvers/message");
 const http_1 = __importDefault(require("http"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -27,7 +28,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     app.use(cors_1.default({ origin: 'http://localhost:3000', credentials: true }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield type_graphql_1.buildSchema({
-            resolvers: [chat_1.ChatResolver],
+            resolvers: [chat_1.ChatResolver, message_1.MessageResolver],
             validate: false,
         }),
         subscriptions: {

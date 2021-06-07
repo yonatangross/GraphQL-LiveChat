@@ -2,6 +2,7 @@
 
 # dependencies
 server/node_modules
+server/dist/**
 front/node_modules
 /node_modules
 

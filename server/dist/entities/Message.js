@@ -14,11 +14,11 @@ const type_graphql_1 = require("type-graphql");
 let Message = class Message {
 };
 __decorate([
-    type_graphql_1.Field((type) => type_graphql_1.ID),
-    __metadata("design:type", Number)
+    type_graphql_1.Field(() => type_graphql_1.ID),
+    __metadata("design:type", String)
 ], Message.prototype, "id", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], Message.prototype, "from", void 0);
 __decorate([
@@ -29,6 +29,10 @@ __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", Date)
 ], Message.prototype, "sentAt", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], Message.prototype, "chatId", void 0);
 Message = __decorate([
     type_graphql_1.ObjectType({ description: 'The message model' })
 ], Message);

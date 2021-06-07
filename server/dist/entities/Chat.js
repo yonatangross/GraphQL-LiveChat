@@ -16,12 +16,16 @@ let Chat = class Chat {
 };
 __decorate([
     type_graphql_1.Field(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Chat.prototype, "id", void 0);
 __decorate([
-    type_graphql_1.Field((type) => [Message_1.Message]),
+    type_graphql_1.Field(() => [Message_1.Message]),
     __metadata("design:type", Array)
 ], Chat.prototype, "messages", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", Date)
+], Chat.prototype, "createdAt", void 0);
 Chat = __decorate([
     type_graphql_1.ObjectType({ description: 'The Chat model' })
 ], Chat);
