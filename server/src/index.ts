@@ -15,7 +15,7 @@ const main = async () => {
   const app = express();
   const httpServer = http.createServer(app);
 
-  app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+  app.use(cors({ origin: `http://localhost:${process.env.PORT}`, credentials: true }));
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
@@ -39,9 +39,9 @@ const main = async () => {
   });
   apolloServer.installSubscriptionHandlers(httpServer);
 
-  httpServer.listen(process.env.PORT, () => {
-    console.log(`Server ready at http://localhost:${process.env.PORT}${apolloServer.graphqlPath}`);
-    console.log(`Subscriptions ready at ws://localhost:${process.env.PORT}${apolloServer.subscriptionsPath}`);
+  httpServer.listen(process.env.GRAPHQL_PORT, () => {
+    console.log(`Server ready at http://localhost:${process.env.GRAPHQL_PORT}${apolloServer.graphqlPath}`);
+    console.log(`Subscriptions ready at ws://localhost:${process.env.GRAPHQL_PORT}${apolloServer.subscriptionsPath}`);
   });
 };
 

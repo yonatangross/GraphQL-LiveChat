@@ -2,7 +2,7 @@ import { INewChatPayload } from './../entities/INewChat';
 import { MessageInput } from './../entities/MessageInput';
 import { sampleChats } from '../data/chat.samples';
 import { Arg, Args, Mutation, Publisher, PubSub, Query, Resolver, ResolverFilterData, Root, Subscription } from 'type-graphql';
-import { Topic } from '../entities/topics';
+import { Topic } from '../entities/Topic';
 import { Chat } from '../entities/Chat';
 import { v4 as uuidv4 } from 'uuid';
 import { Message } from '../entities/Message';
@@ -64,7 +64,7 @@ export class ChatResolver {
       return false;
     }
     this.chatsCollection.push(chat);
-    
+
     await notifyAboutNewChat({
       id: chat.id,
       createdAt: chat.createdAt,
